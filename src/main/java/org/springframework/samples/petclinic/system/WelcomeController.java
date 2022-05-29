@@ -19,11 +19,20 @@ package org.springframework.samples.petclinic.system;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryMXBean;
+
 @Controller
 class WelcomeController {
 
 	@GetMapping("/")
 	public String welcome() {
+		int mb = 1024 * 1024;
+		MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
+		long xmx = memoryBean.getHeapMemoryUsage().getMax() / mb;
+		long xms = memoryBean.getHeapMemoryUsage().getInit() / mb;
+		System.out.println("Initial Memory (xms) : " + xms);
+		System.out.println("Max Memory (xmx) : : " + xmx);
 		return "welcome";
 	}
 

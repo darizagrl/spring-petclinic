@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: spring-petclinic-pod
+  labels:
+    app: spring-petclinic
+spec:
+  containers:
+    - name: spring-petclinic
+      image: application
+  volumes:
+    - name: config
+      configMap:
+        name: spring-petclinic
+        items:
+          - key: "application.properties"
+            path: "application.properties"
